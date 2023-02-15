@@ -184,7 +184,7 @@ function utils.should_be_retargeted(t)
    local to_html_extensions = PANDOC_WRITER_OPTIONS.variables["TO_HTML"]
    if to_html_extensions == nil then
 	  return false
-   end
+   else to_html_extensions = tostring(to_html_extensions) end
    local allowed
    if t.file_extension ~= nil then 
 	  allowed = string.find(to_html_extensions, t.file_extension)

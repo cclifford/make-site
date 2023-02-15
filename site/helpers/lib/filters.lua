@@ -14,6 +14,10 @@ return {
 		 local project_root = PANDOC_WRITER_OPTIONS.variables["OUTPUT_ROOT"]
 		 local tag_file = PANDOC_WRITER_OPTIONS.variables["TAG_FILE"]
 		 local current_file = PANDOC_STATE.input_files[1]
+		 if data_file ~= nil then data_file = tostring(data_file) end
+		 if snippet_file ~= nil then snippet_file = tostring(snippet_file) end
+		 if project_root ~= nil then project_root = tostring(project_root) end
+		 if tag_file ~= nil then tag_file = tostring(tag_file) end
 		 if project_root == nil then return nil end
 		 data.updated = io.popen("stat -c %Y " .. current_file):read()
 		 data.created = io.popen("stat -c %W " .. current_file):read()
