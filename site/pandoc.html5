@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+$extensions$
+<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$"$if(dir)$ dir="$dir$"$endif$>
+  <head>
+	<meta charset="utf-8" />
+	<meta name="generator" content="pandoc" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+	$for(author-meta)$<meta name="author" content="$author-meta$" />$endfor$
+	$if(date-meta)$<meta name="dcterms.date" content="$date-meta$" />$endif$
+	$if(feed)$<link href="$feed$" type="application/atom+xml" rel="alternate" title="Atom feed" />$endif$
+	$if(timestamp)$<meta name="timestamp" content="$timestamp$" />$endif$
+	$if(keywords)$<meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />$endif$
+	$if(description-meta)$<meta name="description" content="$description-meta$" />$endif$
+	<title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+	<style>
+      $styles.html()$
+	</style>
+	$for(css)$
+	<link rel="stylesheet" href="$css$" />
+	$endfor$
+	$for(scripts)$
+	<script type="application/javascript" src=$scripts$></script>
+	$endfor$
+	$for(header-includes)$
+	$header-includes$
+	$endfor$
+	$if(math)$
+	$math$
+	$endif$
+  </head>
+  <body>
+	<div class="document">
+	  <header class="ctext">
+		<nav class="flex subtle-links">
+		  $if(site-title)$
+		  <div class="ctext nav-element">
+			<h1>$site-title$</h1>
+			$if(site-subtitle)$
+			<h3>$site-subtitle$</h3>
+			$endif$
+		  </div>
+		  $endif$
+		  $for(include-before)$
+		  <div class="nav-element ctext"><div class="ltext">
+			  $include-before$
+		  </div></div>
+		  $endfor$
+		</nav>
+	  </header>
+	  <main>
+		$if(title)$
+		<h1 class="title">$title$</h1>
+		$if(subtitle)$
+		<p class="subtitle">$subtitle$</p>
+		$endif$
+		$if(author_block)$
+		$for(author)$
+		<p class="author">$author$</p>
+		$endfor$
+		$if(date)$
+		<p class="date">$date$</p>
+		$endif$
+		$endif$
+		$if(abstract)$
+		<div class="abstract" style="visibility: none;">
+		  <div class="abstract-title">$abstract-title$</div>
+		  $abstract$
+		</div>
+		$endif$
+		$endif$
+		$if(toc)$
+		<nav id="$idprefix$TOC" role="doc-toc">
+		  $if(toc-title)$
+		  <h2 id="$idprefix$toc-title">$toc-title$</h2>
+		  $endif$
+		  $table-of-contents$
+		</nav>
+		$endif$
+		<article>
+		  $body$
+		</article>
+	  </main>
+	  <footer>
+		<div id="tag-cloud">$for(tag_links)$$tag_links$$endfor$</div>
+		$for(include-after)$
+		$include-after$
+		$endfor$
+	  </footer>
+	</div>
+  </body>
+</html>
