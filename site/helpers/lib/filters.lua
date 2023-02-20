@@ -7,13 +7,19 @@ utils = require "utils"
 
 return {
    {
+	  -- Compiles and writes a data file with document metadata extracted from Pandoc.
+	  -- Also, inserts links to the appropriate category on the site tag page.
 	  Pandoc = function(p)
 		 local data = {}
+		 -- Import data from Pandoc variables
 		 local data_file = PANDOC_WRITER_OPTIONS.variables["META_WRITE"]
 		 local snippet_file = PANDOC_WRITER_OPTIONS.variables["SNIPPET"]
 		 local project_root = PANDOC_WRITER_OPTIONS.variables["OUTPUT_ROOT"]
 		 local tag_file = PANDOC_WRITER_OPTIONS.variables["TAG_FILE"]
 		 local current_file = PANDOC_STATE.input_files[1]
+		 -- In the most recent version, Pandoc provides these as internal 'Doc'
+		 -- type variables. I wish there were a better way to convert to real Lua
+		 -- strings...
 		 if data_file ~= nil then data_file = tostring(data_file) end
 		 if snippet_file ~= nil then snippet_file = tostring(snippet_file) end
 		 if project_root ~= nil then project_root = tostring(project_root) end
@@ -59,12 +65,13 @@ return {
 	  end
    },
    {
+	  -- Converts inter-document links to properly reflect how the site is laid out
 	  Link = function(l)
 		 url_components = utils.parse_url(l.target)
 		 if not utils.should_be_retargeted(url_components) then
 		    return nil
 		 end
-		 url_components.resource = url_components.resource:gsub("(.+)%.".. url_components.file_extension, "%1.html")
+		 url_components.resource = url_components.resource:gsub("(.+)%." .. url_components.file_extension, "%1.html")
 		 return pandoc.Link(
 			l.content,
 			utils.make_url(url_components),
